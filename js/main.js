@@ -23,7 +23,8 @@ function initialize() {
 		return;
 	}
 	console.log(event);
-	map.data.overrideStyle(event.feature, {fillColor: 'Green'});
+	map.data.overrideStyle(event.feature, {fillOpacity: 0});
+	//map.data.overrideStyle(event.feature, {fillColor: 'Green'});
 	districtLandInfo(event.feature.getProperty('DISTRICT'));
 	//}	
     /*document.getElementById('info-box').textContent =event.feature.getProperty('DISTRICT');*/
@@ -32,7 +33,8 @@ function initialize() {
 	if(flag==1){
 		return;
 	}
-	map.data.overrideStyle(event.feature, {fillColor: 'Red'});
+	map.data.overrideStyle(event.feature, {fillOpacity: 0.3});	
+	//map.data.overrideStyle(event.feature, {fillColor: 'Red'});
     });	
   map.data.addListener('click', function(event) {
     console.log(event.latLng);
