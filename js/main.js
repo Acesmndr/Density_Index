@@ -2,7 +2,11 @@ var map,t1;
 function initialize() {
   map = new google.maps.Map(document.getElementById('map-canvas'), {
     mapTypeId: google.maps.MapTypeId.HYBRID,	
+    draggable: false,
     zoom: 7,
+    scrollwheel: false,
+    disableDoubleClickZoom: true,
+    disableDefaultUI: true,	
     center: {lat: 28.05259082333986, lng: 84.1552734375}
   });
 
@@ -38,68 +42,87 @@ function initialize() {
     console.log(event.latLng);
     map.setCenter(event.latLng);
     map.setZoom(10);
-  });	
+  });
+  /*google.maps.event.addListener(map, 'dragend', function() {
+                if (strictBounds.contains(map.getCenter())) return;
+
+                // We're out of bounds - Move the map back within the bounds
+                var c = map.getCenter(),
+                x = c.lng(),
+                y = c.lat(),
+                maxX = 89.637451171875,
+                maxY = 31.784216884487382,
+                minX = 77.93701171875,
+                minY =  25.383735254706867;
+
+                if (x < minX) x = minX;
+                if (x > maxX) x = maxX;
+                if (y < minY) y = minY;
+                if (y > maxY) y = maxY;
+
+                map.setCenter(new google.maps.LatLng(y, x));
+            });*/		
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
 function column(dName){
 $(function () {
     $('#container').highcharts({
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: dName
-        },
-        subtitle: {
-            text: 'Source: data.openNepal.net'
-        },
-        xAxis: {
-            categories: [
-                'Shrub',
-                'Agricultural',
-                'Water-Bodies',
-                'Barren Land',
-                'Snow'
-                ]
-        },
-        yAxis: {
-            min: 0,
+         chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
             title: {
-                text: 'Districtwise Land Use Pattern'
-            }
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
-        plotOptions: {
-            column: {
-                pointPadding: 0.2,
-                borderWidth: 0
-            }
-        },
-        series: [{
-            name: 'Water',
-            data: [49.9, 71.5, 106.4, 129.2, 144.0]
-
-        }, {
-            name: 'Bla',
-            data: [83.6, 78.8, 98.5, 93.4, 106.0]
-
-        }, {
-            name: 'Blab',
-            data: [48.9, 38.8, 39.3, 41.4, 47.0]
-
-        }, {
-            name: 'Ras',
-            data: [42.4, 33.2, 34.5, 39.7, 52.6]
-
-        }]
+                text: 'Land Use Pattern of '+dName,
+		
+            },
+	    subtitle:{
+		text: 'Source:data.opennepal.net'
+		},
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+			format: '<b>{point.name} :</b>{point.y}',//: {point.percentage:.1f} %',
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Browser share',
+                data: [
+                    {
+                        name: 'a',
+                        y: 12.8,
+                       /* sliced: true,
+                        selected: true*/
+                    },
+                    {
+                        name: 'b',
+                        y: 12.8,
+                          },
+                    {
+                        name: 'c',
+                        y: 2.8,
+                       },
+                    {
+                        name: 'd',
+                        y: 32.8,
+                     },
+                    {
+                        name: 'Chrome',
+                        y: 22.8,
+                        },
+                    ['Others',   0.7]
+                ]
+            }]
     });
 });
 } 
