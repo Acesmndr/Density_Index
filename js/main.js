@@ -14,20 +14,8 @@ function initialize() {
   // Load GeoJSON.
   map.data.loadGeoJson('assets/nepal-district.geojson');
 
-  // Add some style.
-  map.data.setStyle(function(feature) {
-	var clr="Red";
-	//console.log(feature.getProperty("DISTRICT"));
-	if(d[feature.getProperty("DISTRICT")]!=undefined)
-		clr="White";
-	if(feature.getProperty("DISTRICT")=="KAPILBASTU")
-		clr="Pink";
-    return /** @type {google.maps.Data.StyleOptions} */({
-      fillColor:clr,// feature.getProperty('color'),
-      strokeWeight: 1.2,
-      strokeOpacity: 1	
-    });
-  });
+  districtPercentage();
+  //});
 
   // Set mouseover event for each feature.
   map.data.addListener('mouseover', function(event) {
@@ -35,8 +23,9 @@ function initialize() {
 		return;
 	}
 	console.log(event);
-	map.data.overrideStyle(event.feature, {fillColor: 'Green'});
-	column(event.feature.getProperty('DISTRICT'));
+	map.data.overrideStyle(event.feature, {fillOpacity: 0});
+	//map.data.overrideStyle(event.feature, {fillColor: 'Green'});
+	districtLandInfo(event.feature.getProperty('DISTRICT'));
 	//}	
     /*document.getElementById('info-box').textContent =event.feature.getProperty('DISTRICT');*/
        });
@@ -44,14 +33,15 @@ function initialize() {
 	if(flag==1){
 		return;
 	}
-	map.data.overrideStyle(event.feature, {fillColor: 'Red'});
+	map.data.overrideStyle(event.feature, {fillOpacity: 0.3});	
+	//map.data.overrideStyle(event.feature, {fillColor: 'Red'});
     });	
   map.data.addListener('click', function(event) {
     console.log(event.latLng);
     map.setCenter(event.latLng);
     map.setZoom(9);
     flag=1;
-    map.data.setStyle();
+    map.data.setStyle({fillColor:"rgba(0,0,0,0)"});
     		
   });
   /*google.maps.event.addListener(map, 'dragend', function() {
@@ -76,44 +66,4 @@ function initialize() {
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
-function column(dName){
-districtLandInfo(dName);
-for(var i=0;i<a.length;i++){
-	a[i][1]=parseInt(a[i][1]);
-}
-$(function () {
-    $('#container').highcharts({
-         chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false
-            },
-            title: {
-                text: 'Land Use Pattern of '+dName,
-		
-            },
-	    subtitle:{
-		text: 'Source:data.opennepal.net'
-		},
-            tooltip: {
-                pointFormat: '{series.name}:<b>{point.percentage:.1f}%</b>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-			format: '<b>{point.y}</b>',//: {point.percentage:.1f} %',
-                    },
-                    showInLegend: true
-                }
-            },
-            series: [{
-                type: 'pie',
-                name: 'Browser share',
-                data: a
-            }]
-    });
-});
-} 
+ 
