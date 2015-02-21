@@ -36,7 +36,7 @@ header{
 #map-canvas {
         height: 100%;
         width: 74.5%;
-        margin-left: 25%;
+        margin-left: 340px;
         padding: 0px;
       }
     #info-box {
@@ -47,4 +47,4 @@ header{
       padding: 10px;
       position: absolute;
       left: 0;
-    }}
+    }
