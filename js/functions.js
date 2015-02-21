@@ -110,3 +110,62 @@ function districtPercentage(){
 		}
 		});
 }
+var temp;
+function districtItem(dName){
+	$.ajax({
+			 url: "config/ratio.district.php?district="+dName,
+			 dataType: 'json',
+        		 type: 'GET',
+			 success: function (data) {
+				temp=data;
+				var temp1=new Array();
+				for(var i=0;i<data.length;i++){
+					temp1.push(parseInt(data[i]));
+				}
+				console.log(data);
+		$('#container').highcharts({
+		chart: {
+		    type: 'column'
+		},
+		title: {
+		    text: dName
+		},
+		subtitle: {
+		    text: 'Source: data.openNepal.net'
+		},
+		xAxis: {
+		    categories: [
+		        'Geographical Area',
+		        'Agricultural Area',
+		        'Population Density'
+		        ]
+		},
+		yAxis: {
+		    min: 0,
+		    title: {
+		        text: 'Districtwise Land Use Pattern'
+		    }
+		},
+		tooltip: {
+		    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+		    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+		        '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+		    footerFormat: '</table>',
+		    shared: true,
+		    useHTML: true
+		},
+		plotOptions: {
+		    column: {
+		        pointPadding: 0.2,
+		        borderWidth: 0
+		    }
+		},
+		series: [{
+		    name: dName,
+		    data: temp1
+
+		}]
+	    });
+	}
+});
+}

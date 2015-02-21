@@ -37,6 +37,8 @@ function initialize() {
 	//map.data.overrideStyle(event.feature, {fillColor: 'Red'});
     });	
   map.data.addListener('click', function(event) {
+    console.log(event.feature.getProperty('DISTRICT'));	
+    districtItem(event.feature.getProperty('DISTRICT'));	
     console.log(event.latLng);
     map.setCenter(event.latLng);
     map.setZoom(9);
