@@ -1,27 +1,18 @@
-<html>
+<!DOCTYPE html>
+<html class="no-js" lang="en">
   <head>
-    <style>
-      html, body, #map-canvas {
-        height: 100%;
-        margin: 0px;
-        padding: 0px
-      }
-    #info-box {
-      background-color: white;
-      border: 1px solid black;
-      bottom: 30px;
-      min-height: 20px;
-      padding: 10px;
-      position: absolute;
-      left: 30px;
-    }
-    </style>
+  	<meta charset="utf-8" />
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  	<title>Density Index</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css" >
 <script src="js/vendor/jquery.min.js"></script>
 <script src="js/vendor/highcharts.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
     <script type="text/javascript" src="js/main.js"></script>
   </head>
 <body>
+	<header><div class="density roboto">Density</div><div class="index roboto"> Index</div>
+	</header>
 	<div id="map-canvas"></div>
 	<div id="info-box"><div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div></div>
 </body>
