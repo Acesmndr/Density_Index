@@ -1,3 +1,4 @@
+var flag=0,a;
 var map,t1;
 function initialize() {
   map = new google.maps.Map(document.getElementById('map-canvas'), {
@@ -17,7 +18,7 @@ function initialize() {
   map.data.setStyle(function(feature) {
 	var clr="Red";
 	//console.log(feature.getProperty("DISTRICT"));
-	if(feature.getProperty("DISTRICT")=="KATHMANDU")
+	if(d[feature.getProperty("DISTRICT")]!=undefined)
 		clr="White";
 	if(feature.getProperty("DISTRICT")=="KAPILBASTU")
 		clr="Pink";
@@ -30,18 +31,28 @@ function initialize() {
 
   // Set mouseover event for each feature.
   map.data.addListener('mouseover', function(event) {
+	if(flag==1){
+		return;
+	}
 	console.log(event);
 	map.data.overrideStyle(event.feature, {fillColor: 'Green'});
-	column(event.feature.getProperty('DISTRICT'));	
+	column(event.feature.getProperty('DISTRICT'));
+	//}	
     /*document.getElementById('info-box').textContent =event.feature.getProperty('DISTRICT');*/
        });
   map.data.addListener('mouseout', function(event) {
+	if(flag==1){
+		return;
+	}
 	map.data.overrideStyle(event.feature, {fillColor: 'Red'});
     });	
   map.data.addListener('click', function(event) {
     console.log(event.latLng);
     map.setCenter(event.latLng);
-    map.setZoom(10);
+    map.setZoom(9);
+    flag=1;
+    map.data.setStyle();
+    		
   });
   /*google.maps.event.addListener(map, 'dragend', function() {
                 if (strictBounds.contains(map.getCenter())) return;
@@ -66,6 +77,10 @@ function initialize() {
 
 google.maps.event.addDomListener(window, 'load', initialize);
 function column(dName){
+districtLandInfo(dName);
+for(var i=0;i<a.length;i++){
+	a[i][1]=parseInt(a[i][1]);
+}
 $(function () {
     $('#container').highcharts({
          chart: {
@@ -81,7 +96,7 @@ $(function () {
 		text: 'Source:data.opennepal.net'
 		},
             tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                pointFormat: '{series.name}:<b>{point.percentage:.1f}%</b>'
             },
             plotOptions: {
                 pie: {
@@ -89,7 +104,7 @@ $(function () {
                     cursor: 'pointer',
                     dataLabels: {
                         enabled: true,
-			format: '<b>{point.name} :</b>{point.y}',//: {point.percentage:.1f} %',
+			format: '<b>{point.y}</b>',//: {point.percentage:.1f} %',
                     },
                     showInLegend: true
                 }
@@ -97,31 +112,7 @@ $(function () {
             series: [{
                 type: 'pie',
                 name: 'Browser share',
-                data: [
-                    {
-                        name: 'a',
-                        y: 12.8,
-                       /* sliced: true,
-                        selected: true*/
-                    },
-                    {
-                        name: 'b',
-                        y: 12.8,
-                          },
-                    {
-                        name: 'c',
-                        y: 2.8,
-                       },
-                    {
-                        name: 'd',
-                        y: 32.8,
-                     },
-                    {
-                        name: 'Chrome',
-                        y: 22.8,
-                        },
-                    ['Others',   0.7]
-                ]
+                data: a
             }]
     });
 });
