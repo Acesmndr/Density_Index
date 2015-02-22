@@ -11,6 +11,7 @@ The geographical distribution of land has been representated in a Pie-chart and 
 **Datasets that we used are**
 
 >District wise Population Land Ratio and Population Density (2011) data.opennepal.net
+
 >District wise Land Use Pattern (2001) data.opennepal.net
 
 **DEMO**
