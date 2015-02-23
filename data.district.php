@@ -1,8 +1,8 @@
 <?php
 	
-include 'database.class.php';
-include 'district.class.php';
-include 'data.district.class.php';
+include 'config/database.class.php';
+include 'config/district.class.php';
+include 'config/data.district.class.php';
 
 
 
@@ -18,6 +18,5 @@ if( isset($_GET['district'])){
 }else{
 	echo "NO INPUT";
 }
-
 
 

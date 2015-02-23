@@ -1,7 +1,7 @@
 <?php
 	
-include 'database.class.php';
-include 'ratio.class.php';
+include 'config/database.class.php';
+include 'config/ratio.class.php';
 
 
 if( isset($_GET['district'])){

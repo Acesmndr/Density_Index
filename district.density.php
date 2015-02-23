@@ -1,7 +1,7 @@
 <?php
 
-include 'database.class.php';
-include 'density.class.php';
+include 'config/database.class.php';
+include 'config/density.class.php';
 			
 
 $a = new district_density();

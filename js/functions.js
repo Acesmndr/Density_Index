@@ -6,7 +6,7 @@ var d={
 var sss;
 function districtLandInfo(dName){
 		$.ajax({
-			 url: "config/data.district.php/?district="+dName,
+			 url: "data.district.php/?district="+dName,
 			 dataType: 'json',
         		 type: 'GET',
         		success: function (data) {
@@ -61,7 +61,7 @@ function districtLandInfo(dName){
 	}
 function districtPercentage(){
 		$.ajax({
-			 url: "config/district.density.php",
+			 url: "district.density.php",
 			 dataType: 'json',
         		 type: 'GET',
 			 success: function (data) {
@@ -113,7 +113,7 @@ function districtPercentage(){
 var temp;
 function districtItem(dName){
 	$.ajax({
-			 url: "config/ratio.district.php?district="+dName,
+			 url: "ratio.district.php?district="+dName,
 			 dataType: 'json',
         		 type: 'GET',
 			 success: function (data) {
