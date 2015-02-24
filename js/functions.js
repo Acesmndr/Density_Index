@@ -11,11 +11,9 @@ function districtLandInfo(dName){
         		 type: 'GET',
         		success: function (data) {
 					a=data;	
-					console.log(dName," ",a);
 					for(var i=0;i<a.length;i++){
 						a[i][1]=parseInt(a[i][1]);
 					}
-					console.log(a);
 					if((a[0][1]==undefined)||(a[1][1]==undefined)){
 						$('#container').text("No Data Available");
 						return;
@@ -78,12 +76,12 @@ function districtPercentage(){
 					var maxm=Math.max.apply(Array,popn);
 					for(i=0;i<a.length;i++){
 							dist[a[i][0]]=popn[i]/maxm*1000;
-							console.log(dist[a[i][0]]);
+							//console.log(dist[a[i][0]]);
 					}
 					sss=dist;
 					map.data.setStyle(function(feature) {
 							var temp=feature.getProperty("DISTRICT");
-							console.log(temp, dist[temp]);
+							//console.log(temp, dist[temp]);
 							if(dist[temp]>90){
 								clr="Red";
 							}else{
@@ -122,7 +120,6 @@ function districtItem(dName){
 				for(var i=0;i<data.length;i++){
 					temp1.push(parseInt(data[i]));
 				}
-				console.log(data);
 		$('#container').highcharts({
 		chart: {
 		    type: 'column'

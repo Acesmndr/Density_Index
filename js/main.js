@@ -1,20 +1,31 @@
 var flag=0,a;
 var map,t1;
 function initialize() {
-  map = new google.maps.Map(document.getElementById('map-canvas'), {
-    mapTypeId: google.maps.MapTypeId.HYBRID,	
-    draggable: false,
-    zoom: 7,
-    scrollwheel: false,
-    disableDoubleClickZoom: true,
-    disableDefaultUI: true,	
-    center: {lat: 28.05259082333986, lng: 84.1552734375}
-  });
-
-  // Load GeoJSON.
-  map.data.loadGeoJson('assets/nepal-district.geojson');
-
-  districtPercentage();
+	  map = new google.maps.Map(document.getElementById('map-canvas'), {
+	  	mapTypeId: google.maps.MapTypeId.HYBRID,	
+	  	draggable: false,
+	  	zoom: 7,
+	  	scrollwheel: false,
+	  	disableDoubleClickZoom: true,
+	  	disableDefaultUI: true,	
+	  	center: {lat: 28.05259082333986, lng: 84.1552734375}
+		});
+	$.ajax({
+        	url: "assets/nepal-district.geojson.packed",
+		dataType: 'json',
+        	type: 'GET',
+        	success: function (data) {
+			var minifyr=new GeojsonMinifier({precision:6});
+			t1=minifyr.unpack(data);
+			t1=$.parseJSON(t1);
+			for(i=0;i<75;i++){
+			t1.features[i].geometry.coordinates[0][0][0]=Math.floor(t1.features[i].geometry.coordinates[0][0][0] * 1000000) / 1000000;
+			t1.features[i].geometry.coordinates[0][0][1]=Math.floor(t1.features[i].geometry.coordinates[0][0][1] * 1000000) / 1000000;
+			}
+        		map.data.addGeoJson(t1);
+			districtPercentage();
+  		}
+       		});	
   //});
 
   // Set mouseover event for each feature.
@@ -22,7 +33,6 @@ function initialize() {
 	if(flag==1){
 		return;
 	}
-	console.log(event);
 	map.data.overrideStyle(event.feature, {fillOpacity: 0});
 	//map.data.overrideStyle(event.feature, {fillColor: 'Green'});
 	districtLandInfo(event.feature.getProperty('DISTRICT'));
@@ -37,9 +47,7 @@ function initialize() {
 	//map.data.overrideStyle(event.feature, {fillColor: 'Red'});
     });	
   map.data.addListener('click', function(event) {
-    console.log(event.feature.getProperty('DISTRICT'));	
     districtItem(event.feature.getProperty('DISTRICT'));	
-    console.log(event.latLng);
     map.setCenter(event.latLng);
     map.setZoom(9);
     flag=1;
