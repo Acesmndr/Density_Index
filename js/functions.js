@@ -1,8 +1,3 @@
-var d={
-	'KATHMANDU':123,
-	'DOLAKHA':231,
-	'JHAPA':345
-};
 var sss;
 function districtLandInfo(dName){
 		$.ajax({

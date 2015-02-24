@@ -16,4 +16,4 @@ The geographical distribution of land has been representated in a Pie-chart and 
 
 **DEMO**
  
-[click here to view the DENSITY INDEX demo](http://http://densityindex.site50.net/ "DENSITY INDEX")
+[click here to view the DENSITY INDEX demo](http://densityindex.site50.net/ "DENSITY INDEX")
